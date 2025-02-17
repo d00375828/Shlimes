@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Build the library here
 all: libaudiotrack.a
 
@@ -30,3 +31,7 @@ install: ../lib/libaudiotrack.a ../include/AudioTrack.h ../include/endian_io.h .
 
 clean:
 	-rm -f *.o libaudiotrack.a
+=======
+LIBRARY := audiofiles
+include ../make-help/library.mk
+>>>>>>> b63ca74 (curts quads or burts?)

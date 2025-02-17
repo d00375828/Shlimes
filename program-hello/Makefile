@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 all: hello
 
 hello: hello.o
@@ -11,5 +12,9 @@ clean:
 	-rm -f *.o
 	-rm -f hello
 
+=======
+PROGRAM_NAME := hello
+include ../make-help/program.mk
+>>>>>>> b63ca74 (curts quads or burts?)
 
 

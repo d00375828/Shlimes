@@ -1,5 +1,9 @@
 #include "wav_file_creator_aux.h"
 #include "ApplicationData.h"
+<<<<<<< HEAD
+=======
+#include <memory>
+>>>>>>> b63ca74 (curts quads or burts?)
 
 
 
@@ -46,3 +50,18 @@ int wav_file_creator(ApplicationData& app_data) {
         return 0;
     }
 }
+<<<<<<< HEAD
+=======
+
+void configure_audio_track(ApplicationData& app_data) {
+    // Get user input
+    int samples_per_second = app_data.getInteger("Samples/Second: ");
+    double seconds = app_data.getDouble("Seconds: ");
+
+    // Configure the track
+    AudioTrack& track = app_data.getAudioTrack();
+    if (samples_per_second > 0 && seconds > 0) {
+        track.setSize(samples_per_second, seconds);
+    }
+}
+>>>>>>> b63ca74 (curts quads or burts?)

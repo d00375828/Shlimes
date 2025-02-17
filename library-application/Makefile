@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Build the library here
 all: libapplication.a
 
@@ -19,3 +20,7 @@ install: ../lib/libapplication.a ../include/ApplicationData.h
 
 clean:
 	-rm -f *.o libapplication.a
+=======
+LIBRARY := application
+include ../make-help/library.mk
+>>>>>>> b63ca74 (curts quads or burts?)

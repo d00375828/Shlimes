@@ -4,6 +4,10 @@
 #include "audio_track_creator_aux.h"
 
 void configure_audio_track_and_wav_file(ApplicationData& app_data);
+<<<<<<< HEAD
+=======
+void configure_audio_track(ApplicationData& app_data);
+>>>>>>> b63ca74 (curts quads or burts?)
 void fill_channels(ApplicationData& app_data);
 void save_wav_file(ApplicationData& app_data);
 int wav_file_creator(ApplicationData& app_data);

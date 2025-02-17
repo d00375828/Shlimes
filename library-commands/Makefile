@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Build the library here
 all: libcommands.a
 
@@ -31,3 +32,7 @@ install: ../lib/libcommands.a ../include/questions3_aux.h ../include/audio_track
 clean:
 	-rm -f *.o libcommands.a
 
+=======
+LIBRARY := commands
+include ../make-help/library.mk
+>>>>>>> b63ca74 (curts quads or burts?)
