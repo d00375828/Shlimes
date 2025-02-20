@@ -63,9 +63,22 @@ void AudioTrack::setValue(const unsigned int index, const double value) {
 }
 
 void AudioTrack::resizeValues() {
-    unsigned int new_size = static_cast<unsigned int>(samples_per_second * seconds);
-    values.assign(new_size, 0.0);  // Fully clear and reinitialize to 0.0
+    values.resize(0,0.0);
+    values.assign(samples_per_second * seconds, 0.0);
 }
 
+
+AudioTrack AudioTrack::operator*(const AudioTrack& rhs) const {
+    if (this -> samples_per_second != rhs.getSamplesPerSecond() || seconds != rhs.getSeconds()) {
+        return AudioTrack();  // Return empty track if incompatible
+    }
+    AudioTrack newTrack;
+    newTrack.setSize(this->samples_per_second, this->seconds);
+        for (int i = 0; i < this->values.size(); ++i) {
+        double num = this->values[i] * rhs.getValue(i);
+        newTrack.setValue(i, num);
+    } 
+    return newTrack;
+}
 
 

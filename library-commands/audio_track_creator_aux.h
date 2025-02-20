@@ -21,6 +21,4 @@ void display_audio_track(ApplicationData& app_data);
 // Main function for creating and configuring the audio track
 int audio_track_creator(ApplicationData& app_data);
 
-void configure_audio_track(ApplicationData& app_data);
-
 #endif // AUDIO_TRACK_CREATOR_AUX_H

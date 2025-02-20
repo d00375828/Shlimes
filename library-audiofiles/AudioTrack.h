@@ -35,6 +35,8 @@ public:
     double getValue(const unsigned int index) const;
     void setValue(const unsigned int index, const double value);
 
+    AudioTrack operator*(const AudioTrack& rhs) const;
+
 };
 
 #endif

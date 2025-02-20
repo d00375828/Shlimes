@@ -64,23 +64,25 @@ void ADSREnvelope::setReleaseSeconds(const double release_seconds) {
 void ADSREnvelope::generateAmplitudes(const double seconds, const int samples_per_second, AudioTrack& track) const {
     int total_samples = (seconds * samples_per_second);
 
-    if (total_samples < (mAttack + mDecay + mRelease + (seconds - (mAttack + mDecay + mRelease))) * samples_per_second) {
+    if (total_samples < (mAttack + mDecay + mRelease) * samples_per_second) {
     return;
 }
 
     track.setSize(samples_per_second, seconds);
 
-    int attack_samples = (mAttack * samples_per_second);
-    int decay_samples = (mDecay * samples_per_second);
-    int sustain_samples = total_samples - (attack_samples + decay_samples + (mRelease * samples_per_second));
+    int attack_end = (mAttack * samples_per_second);
+    int decay_end = (mAttack + mDecay) * samples_per_second;
 
-    assignAttackAmplitudes(0, attack_samples, track, 0.0, getMaximumAmplitude());
+    unsigned int release_end = track.getSize();
+    unsigned int release_start = (seconds - mRelease) * samples_per_second;
 
-    assignDecayAmplitudes(attack_samples, attack_samples + decay_samples, track, getMaximumAmplitude(), mSustain);
+    assignAttackAmplitudes(0, attack_end, track, 0.0, getMaximumAmplitude());
 
-    assignSustainAmplitudes(attack_samples + decay_samples, attack_samples + decay_samples + sustain_samples, track, mSustain);
+    assignDecayAmplitudes(attack_end, decay_end, track, getMaximumAmplitude(), mSustain);
 
-    assignReleaseAmplitudes(attack_samples + decay_samples + sustain_samples, total_samples, track, mSustain, 0.0);
+    assignSustainAmplitudes(decay_end, release_start, track, mSustain);
+
+    assignReleaseAmplitudes(release_start, release_end, track, mSustain, 0.0);
 }
 
 void ADSREnvelope::assignAttackAmplitudes(const int begin, const int end, AudioTrack& track, const double a0, const double a1) const {
@@ -97,27 +99,22 @@ void ADSREnvelope::assignAttackAmplitudes(const int begin, const int end, AudioT
 
 
 void ADSREnvelope::assignDecayAmplitudes(const int begin, const int end, AudioTrack& track, const double a0, const double a1) const {
-    if (begin >= end) return;
-
-    for (int x = begin; x < end; ++x) {
-        double y = (x - begin) * (a1 - a0) / (end - begin) + a0;
-        track.setValue(x, y);
+    for (int i = begin; i < end; ++i) {
+        double num = ((a1 - a0) * (i - begin)) / (end - begin) + a0;
+        track.setValue(i, num);
     }
 }
 
 void ADSREnvelope::assignSustainAmplitudes(const int begin, const int end, AudioTrack& track, const double a0) const {
-    if (begin >= end) return;
-    for (int i = begin; i < end; ++i) {
-        track.setValue(i, a0);
+    for (int i = begin; i < end; i++) {
+        double num = a0;
+        track.setValue(i, num);
     }
 }
 
 void ADSREnvelope::assignReleaseAmplitudes(const int begin, const int end, AudioTrack& track, const double a0, const double a1) const {
-    if (begin >= end) return; 
-
-    for (int i = begin; i < end; ++i) {
-        double y = (i - begin) * (a1 - a0) / (end - begin) + a0;
-        track.setValue(i, y);
+    for (int i = begin; i < end; i++) {
+        double num = a0 - (i - begin) * (a0/(end-begin));
+        track.setValue(i, num);
     }
 }
-

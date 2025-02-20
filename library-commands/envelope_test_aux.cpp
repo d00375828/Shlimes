@@ -4,6 +4,7 @@
 #include "ADEnvelope.h"
 #include "ADSREnvelope.h"
 #include "audio_track_creator_aux.h"
+#include "wav_file_creator_aux.h"
 #include <memory>
 
 
@@ -34,10 +35,14 @@ void fill_audio_track_with_envelope(ApplicationData& app_data) {
 }
 
 int envelope_test(ApplicationData& app_data) {
-    configure_audio_track(app_data);
+    // Configure the audio track first
+    configure_audio_track(app_data);  // Note: this is a function, not a static method
 
+    // Fill the track with envelope data
     fill_audio_track_with_envelope(app_data);
 
+    // Display the track data
     display_audio_track(app_data);
+
     return 0;
 }

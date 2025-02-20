@@ -1,6 +1,6 @@
 CXX := g++
 CXXFLAGS := -Wall -I ../include -std=c++20
-LDFLAGS  := -L../lib -lcommands -lapplication -laudiofiles -lwaveform -lenvelope
+LDFLAGS  := -L../lib -lcommands -lapplication -laudiofiles -lwaveform -lenvelope -linstrument
 DEPENDFLAGS := -MMD -MP
 
 SOURCES := $(wildcard *.cpp)
