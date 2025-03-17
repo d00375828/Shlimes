@@ -7,6 +7,9 @@
 #include "AudioTrack.h"
 #include "WAVFile.h"
 #include "MenuData.h"
+#include "Waveforms.h"
+#include "Envelopes.h"
+#include "Instrumentarium.h"
 
 class ApplicationData {
 public:
@@ -36,6 +39,14 @@ public:
     std::vector<AudioTrack>& getChannels();
     const std::vector<AudioTrack>& getChannels() const;
 
+    // collection accessors
+    Waveforms& getWaveforms();
+    const Waveforms& getWaveforms() const;
+    Envelopes& getEnvelopes();
+    const Envelopes& getEnvelopes() const;
+    Instrumentarium& getInstrumentarium();
+    const Instrumentarium& getInstrumentarium() const;
+
 private:
     std::istream& mInputStream;
     std::ostream& mOutputStream;
@@ -43,6 +54,11 @@ private:
     AudioTrack mAudioTrack;
     WAVFile mWAVFile;
     std::vector<AudioTrack> mChannels;
+    
+    // collection members
+    Waveforms mWaveforms;
+    Envelopes mEnvelopes;
+    Instrumentarium mInstrumentarium;
     
     bool mDone;
     MenuData mMenuData;

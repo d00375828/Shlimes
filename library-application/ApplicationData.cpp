@@ -26,13 +26,13 @@ void ApplicationData::clearToEOL() {
         // Keep reading until newline or EOF
     }
 }
-
+ 
 void ApplicationData::takeAction(const std::string& choice) {
     if (mMenuData.actionExists(choice)) {
         const ActionFunctionData& action = mMenuData.getAction(choice);
         action.getFunction()(*this);
     } else {
-        mOutputStream << "Command '" << choice << "' is not valid.\n";
+        mOutputStream << "Unknown action '" << choice << "'. Use 'help' for a list of valid actions\n";
         clearToEOL();
     }
 }
@@ -122,4 +122,29 @@ std::vector<AudioTrack>& ApplicationData::getChannels() {
 // Get a const reference to the channels vector
 const std::vector<AudioTrack>& ApplicationData::getChannels() const {
     return mChannels;
+}
+
+// New collection accessors
+Waveforms& ApplicationData::getWaveforms() {
+    return mWaveforms;
+}
+
+const Waveforms& ApplicationData::getWaveforms() const {
+    return mWaveforms;
+}
+
+Envelopes& ApplicationData::getEnvelopes() {
+    return mEnvelopes;
+}
+
+const Envelopes& ApplicationData::getEnvelopes() const {
+    return mEnvelopes;
+}
+
+Instrumentarium& ApplicationData::getInstrumentarium() {
+    return mInstrumentarium;
+}
+
+const Instrumentarium& ApplicationData::getInstrumentarium() const {
+    return mInstrumentarium;
 }
